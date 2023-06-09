@@ -6,6 +6,7 @@ import WeatherDisplay from "./components/WeatherDisplay";
 const App = () => {
   const inputRef = React.useRef(null);
   const [weatherData, setWeatherData] = React.useState();
+  const [show, setShow] = React.useState(false);
 
   const fetchWeatherInfo = async (e) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ const App = () => {
     );
     const data = await response.json();
     setWeatherData(data);
+    setShow(true);
   };
 
   return (
@@ -33,7 +35,7 @@ const App = () => {
         </form>
         <span className="line"></span>
         <div className="result">
-          <WeatherDisplay weatherData={weatherData} />
+          {show && <WeatherDisplay weatherData={weatherData} />}
         </div>
       </div>
     </section>
