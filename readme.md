@@ -1,6 +1,6 @@
 # Weather App
 
-<img src="./src/assets/app_result.png" alt="alt text" width="400" height="400">
+<img src="./src/assets/app_result.png" alt="alt text" width="800" height="400">
 
 ## Used technologies
 
