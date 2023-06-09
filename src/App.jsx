@@ -12,12 +12,16 @@ const App = () => {
     e.preventDefault();
     const userInput = inputRef.current.value;
 
-    const response = await fetch(
-      `https://goweather.herokuapp.com/weather/${userInput}`
-    );
-    const data = await response.json();
-    setWeatherData(data);
-    setShow(true);
+    try {
+      const response = await fetch(
+        `https://goweather.herokuapp.com/weather/${userInput}`
+      );
+      const data = await response.json();
+      setWeatherData(data);
+      setShow(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
