@@ -2,27 +2,42 @@ import React from "react";
 
 // Components
 import WeatherDisplay from "./components/WeatherDisplay";
+import Page404 from "./components/Page404";
 
 const App = () => {
   const inputRef = React.useRef(null);
   const [weatherData, setWeatherData] = React.useState();
+  const [error, setError] = React.useState(false);
   const [show, setShow] = React.useState(false);
 
   const fetchWeatherInfo = async (e) => {
     e.preventDefault();
-    const userInput = inputRef.current.value;
 
     try {
+      const userInput = inputRef.current.value;
       const response = await fetch(
         `https://goweather.herokuapp.com/weather/${userInput}`
       );
       const data = await response.json();
-      setWeatherData(data);
-      setShow(true);
-    } catch (error) {
-      console.log(error);
+      if (response.status === 404) {
+        setError(true);
+        setShow(false);
+      } else {
+        setWeatherData(data);
+        setError(false);
+        setShow(true);
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
+
+  let displayResult =
+    error === true ? (
+      <Page404 />
+    ) : (
+      <WeatherDisplay weatherData={weatherData} show={show} />
+    );
 
   return (
     <section className="app">
@@ -38,9 +53,7 @@ const App = () => {
           <button onClick={fetchWeatherInfo}>Search</button>
         </form>
         <span className="line"></span>
-        <div className="result">
-          {show && <WeatherDisplay weatherData={weatherData} />}
-        </div>
+        <div className="result">{displayResult}</div>
       </div>
     </section>
   );

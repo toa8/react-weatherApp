@@ -1,13 +1,18 @@
 /* eslint-disable react/prop-types */
 
-const WeatherDisplay = ({ weatherData }) => {
+const WeatherDisplay = ({ weatherData, show }) => {
   return (
     <div className="result-card">
-      <p>🌡Temperature : {weatherData?.temperature}</p>
-      <p>🍃 Wind : {weatherData?.wind}</p>
-      <p>📃 Description : {weatherData?.description}</p>
+      {show === true ? (
+        <>
+          <p>🌡Temperature : {weatherData?.temperature}</p>
+          <p>🍃 Wind : {weatherData?.wind}</p>
+          <p>📃 Description : {weatherData?.description}</p>
+        </>
+      ) : null}
+
       <div className="outer-forecast">
-        {weatherData?.forecast.map((item, idx) => {
+        {weatherData?.forecast?.map((item, idx) => {
           return (
             <div className="forecast" key={idx}>
               <p>Day {item.day}</p>
