@@ -7,3 +7,5 @@
 - React (Vite)
 - Pure Css
 - Weather API
+
+live: https://react-weather-app-six-nu.vercel.app/
